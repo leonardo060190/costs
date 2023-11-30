@@ -1,17 +1,107 @@
 {
-    "projects":[],
-    "categories":[
-            {
-                "id":1,
-                "name":"Infra"
-            },
-            {
-                "id":2,
-                "name":"Desing"
-            },
-            {
-                "id":3,
-                "name":"Desenvolvimento"
-            }
-    ]
+  "projects": [
+    {
+      "name": "teste",
+      "budget": "5000",
+      "category": {
+        "id": "1",
+        "name": "Infra"
+      },
+      "costs": 0,
+      "services": [],
+      "id": 1
+    },
+    {
+      "name": "teste",
+      "budget": "5000",
+      "category": {
+        "id": "1",
+        "name": "Infra"
+      },
+      "costs": 0,
+      "services": [],
+      "id": 2
+    },
+    {
+      "name": "criar teste",
+      "budget": "100000",
+      "category": {
+        "id": "2",
+        "name": "Desing"
+      },
+      "costs": 0,
+      "services": [],
+      "id": 3
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 4
+    },
+    {
+      "name": "teste mensasan",
+      "budget": "10000",
+      "category": {
+        "id": "1",
+        "name": "Infra"
+      },
+      "costs": 0,
+      "services": [],
+      "id": 5
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 6
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 7
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 8
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 9
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 10
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 11
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 12
+    },
+    {
+      "costs": 0,
+      "services": [],
+      "id": 13
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Infra"
+    },
+    {
+      "id": 2,
+      "name": "Desing"
+    },
+    {
+      "id": 3,
+      "name": "Desenvolvimento"
+    }
+  ]
 }
