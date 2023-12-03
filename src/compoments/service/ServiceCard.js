@@ -14,7 +14,9 @@ function ServiceCard({ id, name, cost, description, handleRemove }) {
             <p>
                 <span>Custo total:</span> R${cost}
             </p>
-            <p>{description}</p>
+            <p>
+                <span>Descrição:</span> {description}
+            </p>
             <div className={styles.project_card_actions}>
                 <button onClick={remove}>
                     <BsFillTrashFill />

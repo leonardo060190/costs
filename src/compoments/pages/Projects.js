@@ -9,8 +9,8 @@ import ProjectCard from '../project/ProjectCard';
 
 function Projects() {
   const [projects, setProjects] = useState([]);
-  const [removeLoading, setremoveLoading] = useState(false);
-  const [projectMessage, setprojectMessage] = useState('');
+  const [removeLoading, setRemoveLoading] = useState(false);
+  const [projectMessage, setProjectMessage] = useState('');
 
   const location = useLocation();
   let message = '';
@@ -29,13 +29,13 @@ function Projects() {
       })
         .then((resp) => resp.json())
         .then((data) => {
-          console.log(data);
+          //console.log(data);
           setProjects(data);
-          setremoveLoading(true)
+          setRemoveLoading(true)
         })
         .catch((err) => console.log(err));
 
-    }, 300)
+    }, 100)
   }, []);
 
   function removeProjet(id) {
@@ -44,9 +44,9 @@ function Projects() {
       headers: { 'Content-Type': 'application/json' }
     })
       .then((resp) => resp.json())
-      .then((data) => { 
+      .then((data) => {
         setProjects(projects.filter((project) => project.id !== id))
-        setprojectMessage("Projeto removido com sucesso!")
+        setProjectMessage("Projeto removido com sucesso!")
       })
       .catch((err) => console.log(err))
 
@@ -57,12 +57,10 @@ function Projects() {
       <div className={styles.title_container}>
         <h1>Meus Projetos</h1>
         <LinkButton to="/newproject" text="Criar Projeto" />
-
-
-        {message && <Message type="success" msg={message} />}
-
       </div>
 
+      {message && <Message type="success" msg={message} />}
+      {projectMessage && <Message type="success" msg={projectMessage} />}
 
 
       <Container pageClass="start">

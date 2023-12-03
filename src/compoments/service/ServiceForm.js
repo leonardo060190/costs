@@ -3,54 +3,54 @@ import Input from '../form/Input'
 import SubmitButton from '../form/SubmitButton'
 import styles from '../project/ProjectForm.module.css'
 
-
 function ServiceForm({ handleSubmit, btnText, projectData }) {
 
-    const [service, setService] = useState({})
+  const [service, setService] = useState({})
 
-    function submit(e) {
+  function submit(e) {
+    e.preventDefault()
 
-        e.preventDefault()
-        
-        projectData.services.push(service)
-        handleSubmit(projectData)
-
+    // Ensure services property is initialized before pushing
+    if (!Array.isArray(projectData.services)) {
+      projectData.services = [];
     }
 
-    function handleChange(e) {
-        setService({ ...service, [e.target.name]: e.target.value })
-    }
+    projectData.services.push(service);
+    handleSubmit(projectData);
+  }
 
-    return (
-        <form onSubmit={submit} className={styles.form}>
-            <Input
-                type='text'
-                text='Nome do serviço'
-                nome='name'
-                placeholder='Insira o nome do serviço'
-                handleOnChange={handleChange}
+  function handleChange(e) {
+    setService({ ...service, [e.target.name]: e.target.value });
+  }
 
-            />
-            <Input
-                type='number'
-                text='Custo do serviço'
-                nome='cost'
-                placeholder='Insira o valor total'
-                handleOnChange={handleChange}
+  return (
+    <form onSubmit={submit} className={styles.form}>
+      <Input
+        type="text"
+        text="Nome do serviço"
+        name="name"
+        placeholder="Insira o nome do serviço"
+        handleOnChange={handleChange}
+      />
+      <Input
+        type="number"
+        text="Custo do serviço"
+        name="cost"
+        placeholder="Insira o valor total"
+        handleOnChange={handleChange}
+      />
+      <Input
+        type="text"
+        text="Descrição do serviço"
+        name="description"
+        placeholder="Descreva o serviço"
+        handleOnChange={handleChange}
+      />
 
-            />
-            <Input
-                type='text'
-                text='Descrição do serviço'
-                nome='description'
-                placeholder='Descreva o serviço'
-                handleOnChange={handleChange}
-
-            />
-
-            <SubmitButton text={btnText} />
-        </form>
-    )
+      <SubmitButton text={btnText} />
+    </form>
+  );
 }
+
 
 export default ServiceForm

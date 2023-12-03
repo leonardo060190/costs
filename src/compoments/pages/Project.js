@@ -18,8 +18,8 @@ function Project() {
     const [services, setServices] = useState([])
     const [showProjectForm, setShowProjectForm] = useState(false)
     const [showServiceForm, setShowServiceForm] = useState(false)
-    const [message, setMessage] = useState()
-    const [type, setType] = useState()
+    const [message, setMessage] = useState('')
+    const [type, setType] = useState('success')
 
     useEffect(() => {
         setTimeout(() => {
@@ -27,7 +27,7 @@ function Project() {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' }
             })
-                .then(resp => resp.json())
+                .then((resp) => resp.json())
                 .then((data) => {
                     setProject(data)
                     setServices(data.services)
@@ -42,7 +42,7 @@ function Project() {
 
         // budget validation
         if (project.budget < project.cost) {
-            setMessage("O orçãmento não pode ser menor que o custo do projeto!")
+            setMessage("O orçamento não pode ser menor que o custo do projeto!")
             setType('error')
             return false
         }
@@ -53,10 +53,10 @@ function Project() {
             },
             body: JSON.stringify(project),
         })
-            .then(resp => resp.json())
+            .then((resp) => resp.json())
             .then((data) => {
                 setProject(data)
-                setShowProjectForm(false)
+                setShowProjectForm(!showProjectForm)
                 setMessage("Projeto atualizado!")
                 setType('success')
             }).catch(err => console.log(err))
@@ -88,9 +88,12 @@ function Project() {
             },
             body: JSON.stringify(project)
         })
-            .then(resp => resp.json())
+            .then((resp) => resp.json())
             .then((data) => {
-                setShowProjectForm(false)
+                setServices(data.services)
+                setShowServiceForm(!showServiceForm)
+                setMessage('Serviço adicionado!')
+                setType('success')
             })
             .catch(err => console.log(err))
 
@@ -100,13 +103,13 @@ function Project() {
 
         const servicesUpdated = project.services.filter(
             (service) => service.id !== id
-        )
+        );
 
         const projectUpdated = project
-
-        projectUpdated.services = servicesUpdated
-        projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost)
-
+        if (services) {
+            projectUpdated.services = servicesUpdated
+            projectUpdated.cost = parseFloat(projectUpdated.cost) - parseFloat(cost)
+        }
         fetch(`http://localhost:5000/projects/${projectUpdated.id}`, {
             method: "PATCH",
             headers: {
@@ -115,13 +118,13 @@ function Project() {
             body: JSON.stringify(projectUpdated)
 
         })
-        .then(resp => resp.json())
-        .then((data) => {
-            setProject(projectUpdated)
-            setServices(servicesUpdated)
-            setMessage('serviço removido com sucesso!')
-        })
-        .catch(err => console.log(err))
+            .then((resp) => resp.json())
+            .then((data) => {
+                setProject(data)
+                setShowServiceForm(!showServiceForm)
+                setMessage('serviço removido com sucesso!')
+            })
+            .catch(err => console.log(err))
 
     }
 
@@ -150,10 +153,10 @@ function Project() {
                                         <span>Categoria:</span> {project.category.name}
                                     </p>
                                     <p>
-                                        <span>Total de Orçamento:</span> {project.budget}
+                                        <span>Total de Orçamento:</span> R${project.budget}
                                     </p>
                                     <p>
-                                        <span>Total Utilizado:</span> {project.cost}
+                                        <span>Total Utilizado:</span> R${project.cost}
                                     </p>
                                 </div>
 
@@ -182,7 +185,7 @@ function Project() {
                                 />}
                             </div>
                         </div>
-                        <h2>Serviços</h2>
+                        <h2>Serviços:</h2>
                         <Container pageClass="start">
                             {services.length > 0 &&
                                 services.map((service) => (
@@ -194,10 +197,9 @@ function Project() {
                                         Key={service.id}
                                         handleRemove={removeService}
                                     />
-                                ))
-
-                            }
-                            {services.length === 0 && <p>Não há serviços cadastrados</p>}
+                                ))}
+                            {services && services.length === 0 && <p>Não há serviços cadastrados</p>}
+                        
                         </Container>
                     </Container>
                 </div>
